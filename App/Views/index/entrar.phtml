@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="d-flex justify-content-center mt-5">
+    <div class="card" style="width: 36rem;">
+      <div class="card-body">
+
+        <!--<div class="d-flex justify-content-center">
+          <img src="/img/twitter_logo.png" />
+        </div>-->
+
+        <div class="row">
+          <div class="col">
+            <h2>Entre com sua conta</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+
+            <form method="post" action="/autenticar">
+              <div class="row">
+                <div class="col">
+                  <input type="text" name="email" class="form-control" placeholder="E-mail">
+                </div>
+                <div class="col">
+                  <input type="password" name="senha" class="form-control" placeholder="Senha">
+                </div>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-primary mb-2">Entrar</button>
+                </div>    
+              </div>
+
+                <?php if($this->view->login == 'erro') { ?>
+                <div class="row">
+                  <div class="col">
+                    <span class="text text-danger">*E-mail ou senha invalido(s)</span>
+                  </div>
+                </div>
+                <?php } ?>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+  
