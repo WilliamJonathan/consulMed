@@ -13,6 +13,7 @@ class Usuario extends Model {
 	private $ocupacao;
 	private $cep;
 	private $rua;
+	private $bairro;
 	private $cidade;
 	private $uf;
 	private $senha;
@@ -51,6 +52,10 @@ class Usuario extends Model {
 		}
 
 		if (!isset($_POST['rua']) || strlen($_POST['rua']) < 3) {
+			$valido = false;
+		}
+
+		if (!isset($_POST['bairro']) || strlen($_POST['bairro']) < 3) {
 			$valido = false;
 		}
 
@@ -184,6 +189,7 @@ class Usuario extends Model {
 			'ocupacao' => $_POST['ocupacao'],
 			'cep' => $_POST['cep'],
 			'rua' => $_POST['rua'],
+			'bairro' => $_POST['bairro'],
 			'cidade' => $_POST['cidade'],
 			'uf' => $_POST['uf'],
 			'senha' => md5($_POST['senha'])
