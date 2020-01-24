@@ -18,6 +18,7 @@ class Usuario extends Model {
 	private $uf;
 	private $senha;
 	private $token;
+	private $num_local;
 
 	public function __get($atributo) {
 		return $this->$atributo;
@@ -71,6 +72,10 @@ class Usuario extends Model {
 			$valido = false;
 		}
 
+		if (!isset($_POST['num_local']) || strlen($_POST['num_local']) <= 0) {
+			$valido = false;
+		}
+
 		/*
 		if (strlen($this->__get('senha')) < 3) {
 			$valido = false;
@@ -89,7 +94,7 @@ class Usuario extends Model {
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}*/
 
-	public function gerarToken() {
+	/*public function gerarToken() {
 		$usuario = array(
 				'email' => $_POST['email'],
 				'senha' => $_POST['senha'],
@@ -123,7 +128,7 @@ class Usuario extends Model {
 			//var_dump($chave);
 			}
 		}		
-	}
+	}*/
 
 
 	public function autenticar() {
@@ -189,6 +194,7 @@ class Usuario extends Model {
 			'ocupacao' => $_POST['ocupacao'],
 			'cep' => $_POST['cep'],
 			'rua' => $_POST['rua'],
+			'num_local' => $_POST['num_local'],
 			'bairro' => $_POST['bairro'],
 			'cidade' => $_POST['cidade'],
 			'uf' => $_POST['uf'],
@@ -201,6 +207,44 @@ class Usuario extends Model {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $usuario);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$resposta = json_decode(curl_exec($ch));
+
+		/*echo '<pre>';
+		print_r(json_encode($usuario));
+		echo '</pre>';*/
+
+		$usuariotoken = array(
+				'email' => $_POST['email'],
+				'senha' => $_POST['senha'],
+			);
+		
+		$url = 'http://192.168.15.142:8888/public/api/v1/clinica/gerar/token';
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $usuariotoken);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$respostatoken = json_decode(curl_exec($ch));
+		//var_dump($resposta);
+		foreach ($respostatoken as $key => $value) {
+			if ($value == 'erro') {
+			echo 'deu ruim';
+			}else{
+			//var_dump($resposta);
+			$usuariotoken = array(
+				'email' => $_POST['email'],
+				'token' => $value,
+			);
+
+			$url = 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/adiciona/token';
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_POST, true);
+			//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $usuariotoken);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$chave = json_decode(curl_exec($ch));
+			//echo $value;
+			//var_dump($chave);
+			}
+		}	
 		
 	}
 

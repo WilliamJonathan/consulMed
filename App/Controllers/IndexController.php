@@ -29,6 +29,7 @@ class IndexController extends Action {
 				'ocupacao' => '',
 				'cep' => '',
 				'rua' => '',
+				'num_local' => '',
 				'cidade' => '',
 				'uf' => '',
 				'senha' => '',
@@ -42,21 +43,10 @@ class IndexController extends Action {
 		//recebe dados do formulario
 		$usuario = Container::getModel('Usuario');
 
-		/*$usuario->__set('nome_fantasia', $_POST['nome_fantasia']);
-		$usuario->__set('email', $_POST['email']);
-		$usuario->__set('cnpj', $_POST['cnpj']);
-		$usuario->__set('ocupacao', $_POST['ocupacao']);
-		$usuario->__set('cep', $_POST['cep']);
-		$usuario->__set('rua', $_POST['rua']);
-		$usuario->__set('cidade', $_POST['cidade']);
-		$usuario->__set('uf', $_POST['uf']);
-		$usuario->__set('senha', md5($_POST['senha']));*/
-
-		//&& count($usuario->getUsuariosEmail()) == 0
 		if ($usuario->validarCadastro()) {
-				$usuario->cadastrarCli();
-				//$usuario->salvar();
-				$this->render('cadastro');
+			$usuario->cadastrarCli();
+			//$usuario->salvar();
+			$this->render('cadastro');
 			
 		}else{
 			$this->view->usuario = array(
@@ -66,6 +56,7 @@ class IndexController extends Action {
 				'ocupacao' => $_POST['ocupacao'],
 				'cep' => $_POST['cep'],
 				'rua' => $_POST['rua'],
+				'num_local' => $_POST['num_local'],
 				'cidade' => $_POST['cidade'],
 				'uf' => $_POST['uf'],
 				'senha' => $_POST['senha'],
