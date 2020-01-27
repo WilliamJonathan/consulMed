@@ -18,7 +18,7 @@
               </div>
               
               <div class="form-group">
-                <input type="text" value="<?= $this->view->usuario['email']?>" name="email" class="form-control" placeholder="E-mail">
+                <input type="text" value="<?= $this->view->usuario['email']?>" name="email" class="form-control" placeholder="E-mail" onblur="verificaEmail(this.value)">
               </div>
 
               <div class="form-group">
@@ -95,6 +95,24 @@
         document.getElementById('cidade').value = dadosJsonObj.localidade
         document.getElementById('uf').value = dadosJsonObj.uf
         //console.log(dadosJsonObj)
+      }
+    }
+
+    xmlHttp.send()
+  }
+</script>
+
+<script>
+  function verificaEmail(email){
+    let url = 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/emailexistente'
+    let xmlHttp = new XMLHttpRequest()
+    xmlHttp.open('POST', url)
+
+    xmlHttp.onreadystatechange = () => {
+      if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+        let dadosJson = xmlHttp.responseText
+        let dadosJsonObj = JSON.parse(dadosJson)
+        console.log(dadosJsonObj)
       }
     }
 

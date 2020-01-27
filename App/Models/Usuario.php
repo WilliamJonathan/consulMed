@@ -244,7 +244,7 @@ class Usuario extends Model {
 			//echo $value;
 			//var_dump($chave);
 			}
-		}	
+		}
 		
 	}
 
