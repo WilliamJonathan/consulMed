@@ -103,33 +103,17 @@
 </script>
 
 <script type="text/javascript">
-  var dadosJson;
+  var emailCli;
   function verificaEmail(email){
-    
-    var response = {email: dadosJson}
+    let dados = {email:email}
     $.ajax({
       type: 'post',
       url: 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/emailexistente',
-      data: response,
+      data: dados,
       dataType: 'json',
       success: dados => {console.log(dados)},
       error: erro => {console.log(erro)}
     });
-
-    /*//let dadosJson = JSON.stringify(email)
-    var url = 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/emailexistente'
-    var xmlHttp = new XMLHttpRequest()
-    xmlHttp.open('POST', url)
-    xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    xmlHttp.send(email)
-
-    xmlHttp.onreadystatechange = () => {
-      if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
-        var response = xmlHttp.responseText
-        console.log(response)
-      }
-    }
-
-    //xmlHttp.send()*/
   }
+
 </script>
