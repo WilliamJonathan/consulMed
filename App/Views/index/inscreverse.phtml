@@ -22,7 +22,8 @@
               </div>
 
               <div class="form-group">
-                <input type="text" class="form-control" name="cnpj" placeholder="CNPJ">
+                <input type="text" class="form-control" name="cnpj" placeholder="CNPJ"
+                onblur="verificaCNPJ(this.value)">
               </div>
 
               <div class="form-group">
@@ -103,7 +104,6 @@
 </script>
 
 <script type="text/javascript">
-  var emailCli;
   function verificaEmail(email){
     let dados = {email:email}
     $.ajax({
@@ -115,5 +115,18 @@
       error: erro => {console.log(erro)}
     });
   }
+</script>
 
+<script type="text/javascript">
+  function verificaCNPJ(cnpj){
+    let dados = {cnpj:cnpj}
+    $.ajax({
+      type: 'post',
+      url: 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/cnpjexistente',
+      data: dados,
+      dataType: 'json',
+      success: dados => {console.log(dados)},
+      error: erro => {console.log(erro)}
+    });
+  }
 </script>
