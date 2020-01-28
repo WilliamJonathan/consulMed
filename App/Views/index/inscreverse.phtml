@@ -102,20 +102,34 @@
   }
 </script>
 
-<script>
+<script type="text/javascript">
+  var dadosJson;
   function verificaEmail(email){
-    let url = 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/emailexistente'
-    let xmlHttp = new XMLHttpRequest()
+    
+    var response = {email: dadosJson}
+    $.ajax({
+      type: 'post',
+      url: 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/emailexistente',
+      data: response,
+      dataType: 'json',
+      success: dados => {console.log(dados)},
+      error: erro => {console.log(erro)}
+    });
+
+    /*//let dadosJson = JSON.stringify(email)
+    var url = 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/emailexistente'
+    var xmlHttp = new XMLHttpRequest()
     xmlHttp.open('POST', url)
+    xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xmlHttp.send(email)
 
     xmlHttp.onreadystatechange = () => {
       if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
-        let dadosJson = xmlHttp.responseText
-        let dadosJsonObj = JSON.parse(dadosJson)
-        console.log(dadosJsonObj)
+        var response = xmlHttp.responseText
+        console.log(response)
       }
     }
 
-    xmlHttp.send()
+    //xmlHttp.send()*/
   }
 </script>
