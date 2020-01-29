@@ -22,7 +22,7 @@
               </div>
 
               <div class="form-group">
-                <input type="text" class="form-control" name="cnpj" placeholder="CNPJ"
+                <input type="text" id="cnpj" class="form-control" name="cnpj" placeholder="CNPJ"
                 onblur="verificaCNPJ(this.value)">
               </div>
 
@@ -31,7 +31,7 @@
               </div>
 
               <div class="form-group">
-                <input type="text" class="form-control" name="cep" placeholder="CEP" onblur="buscacep(this.value)">
+                <input type="text" id="cep" class="form-control" name="cep" placeholder="CEP" onblur="buscacep(this.value)">
               </div>
 
               <div class="form-group">
@@ -104,6 +104,7 @@
 </script>
 
 <script type="text/javascript">
+  var response;
   function verificaEmail(email){
     let dados = {email:email}
     $.ajax({
@@ -111,13 +112,34 @@
       url: 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/emailexistente',
       data: dados,
       dataType: 'json',
-      success: dados => {console.log(dados)},
-      error: erro => {console.log(erro)}
+      success: dados => { response = dados; alertVerificacao()},
+      error: erro => {alertErr()}
     });
   }
+
+  function alertVerificacao(){
+    if (response['status'] == 'email_existente') {
+      alert('email em uso');
+      window.location.reload();
+    }
+  }
+
+  function alertErr(){
+      alert('Erro inesperado a pagina será recarregada');
+      window.location.reload();
+  }
+
 </script>
 
 <script type="text/javascript">
+  $(document).ready(function(){
+    $('#cep').mask('00000-000');
+    $('#cnpj').mask('00.000.000/0000-00');
+  });
+</script>
+
+<script type="text/javascript">
+  var response;
   function verificaCNPJ(cnpj){
     let dados = {cnpj:cnpj}
     $.ajax({
@@ -125,8 +147,21 @@
       url: 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/cnpjexistente',
       data: dados,
       dataType: 'json',
-      success: dados => {console.log(dados)},
-      error: erro => {console.log(erro)}
+      success: dados => {response = dados; alertVerifiCNPJ()},
+      error: erro => {alertErr()}
     });
   }
+
+  function alertVerifiCNPJ(){
+    if (response['status'] == 'cnpj_existente') {
+      alert('CNPJ em uso');
+      window.location.reload();
+    }
+  }
+
+  function alertErr(){
+      alert('Erro inesperado a pagina será recarregada');
+      window.location.reload();
+  }
+
 </script>
