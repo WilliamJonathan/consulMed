@@ -141,7 +141,12 @@
 <script type="text/javascript">
   var response;
   function verificaCNPJ(cnpj){
-    let dados = {cnpj:cnpj}
+    var cnpjFormat = cnpj;
+    cnpjFormat = cnpjFormat.replace('.', '');
+    cnpjFormat = cnpjFormat.replace('.', '');
+    cnpjFormat = cnpjFormat.replace('/', '');
+    cnpjFormat = cnpjFormat.replace('-', '');
+    let dados = {cnpj:cnpjFormat}
     $.ajax({
       type: 'post',
       url: 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/lista/cnpjexistente',
