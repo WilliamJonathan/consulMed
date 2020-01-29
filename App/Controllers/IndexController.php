@@ -46,7 +46,7 @@ class IndexController extends Action {
 		if ($usuario->validarCadastro()) {
 			$usuario->cadastrarCli();
 			//$usuario->salvar();
-			$this->render('cadastro');
+			$this->render('entrar');
 			
 		}else{
 			$this->view->usuario = array(

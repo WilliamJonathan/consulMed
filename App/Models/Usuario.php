@@ -187,12 +187,21 @@ class Usuario extends Model {
 
 	public function cadastrarCli() {
 
+		$cnpj = trim($_POST['cnpj']);
+		$cnpj = str_replace('.', '', $cnpj);
+		$cnpj = str_replace('.', '', $cnpj);
+		$cnpj = str_replace('/', '', $cnpj);
+		$cnpj = str_replace('-', '', $cnpj);
+
+		$cep = trim($_POST['cep']);
+		$cep = str_replace('-', '', $cep);
+
 		$usuario = array(
 			'nome_fantasia' => $_POST['nome_fantasia'],
 			'email' => $_POST['email'],
-			'cnpj' => $_POST['cnpj'],
+			'cnpj' => $cnpj,
 			'ocupacao' => $_POST['ocupacao'],
-			'cep' => $_POST['cep'],
+			'cep' => $cep,
 			'rua' => $_POST['rua'],
 			'num_local' => $_POST['num_local'],
 			'bairro' => $_POST['bairro'],
@@ -211,7 +220,7 @@ class Usuario extends Model {
 		/*echo '<pre>';
 		print_r(json_encode($usuario));
 		echo '</pre>';*/
-
+		
 		$usuariotoken = array(
 				'email' => $_POST['email'],
 				'senha' => $_POST['senha'],
