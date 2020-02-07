@@ -25,6 +25,7 @@ class IndexController extends Action {
 		$this->view->usuario = array(
 				'nome_fantasia' => '',
 				'email' => '',
+				'telefone' => '',
 				'cnpj' => '',
 				'ocupacao' => '',
 				'cep' => '',
@@ -52,6 +53,7 @@ class IndexController extends Action {
 			$this->view->usuario = array(
 				'nome_fantasia' => $_POST['nome_fantasia'],
 				'email' => $_POST['email'],
+				'telefone' => $_POST['telefone'],
 				'cnpj' => $_POST['cnpj'],
 				'ocupacao' => $_POST['ocupacao'],
 				'cep' => $_POST['cep'],

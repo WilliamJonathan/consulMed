@@ -9,6 +9,7 @@ class Usuario extends Model {
 	private $id;
 	private $nome_fantasia;
 	private $email;
+	private $telefone;
 	private $cnpj;
 	private $ocupacao;
 	private $cep;
@@ -37,6 +38,10 @@ class Usuario extends Model {
 		}
 
 		if (!isset($_POST['email']) || strlen($_POST['email']) < 3) {
+			$valido = false;
+		}
+
+		if (!isset($_POST['telefone']) || strlen($_POST['telefone']) < 3) {
 			$valido = false;
 		}
 
@@ -83,53 +88,6 @@ class Usuario extends Model {
 
 		return $valido;
 	}
-
-	//recupera email usuarios e verifica se já existe
-	/*public function getUsuariosEmail() {
-		$query = "select nome_fantasia, email from usuariosclinica where email = :email";
-		$stmt = $this->db->prepare($query);
-		$stmt->bindValue(':email', $this->__get('email'));
-		$stmt->execute();
-
-		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-	}*/
-
-	/*public function gerarToken() {
-		$usuario = array(
-				'email' => $_POST['email'],
-				'senha' => $_POST['senha'],
-			);
-		
-		$url = 'http://192.168.15.142:8888/public/api/v1/clinica/gerar/token';
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $usuario);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$resposta = json_decode(curl_exec($ch));
-		//var_dump($resposta);
-		foreach ($resposta as $key => $value) {
-			if ($value == 'erro') {
-			echo 'deu ruim';
-			}else{
-			//var_dump($resposta);
-			$usuario = array(
-				'email' => $_POST['email'],
-				'token' => $value,
-			);
-
-			$url = 'http://192.168.15.142:8888/public/api/v1/usuarioclinica/adiciona/token';
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_POST, true);
-			//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $usuario);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			$chave = json_decode(curl_exec($ch));
-			//echo $value;
-			//var_dump($chave);
-			}
-		}		
-	}*/
-
 
 	public function autenticar() {
 		$usuario = array('email' => $_POST['email'], 'senha' => $_POST['senha']);
@@ -199,6 +157,7 @@ class Usuario extends Model {
 		$usuario = array(
 			'nome_fantasia' => $_POST['nome_fantasia'],
 			'email' => $_POST['email'],
+			'telefone' => $_POST['telefone'],
 			'cnpj' => $cnpj,
 			'ocupacao' => $_POST['ocupacao'],
 			'cep' => $cep,
