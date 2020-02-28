@@ -197,7 +197,7 @@ class Usuario extends Model {
 			echo 'deu ruim';
 			}else{
 			//var_dump($resposta);
-			$usuariotoken = array(
+			$token = array(
 				'email' => $_POST['email'],
 				'token' => $value,
 			);
@@ -206,7 +206,7 @@ class Usuario extends Model {
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_POST, true);
 			//curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $usuariotoken);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $token);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$chave = json_decode(curl_exec($ch));
 			//echo $value;
